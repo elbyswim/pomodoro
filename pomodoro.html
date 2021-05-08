@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pomodoro</title>
+    <meta name="author" content="Elbert Lai">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="https://www.elbertlai.com">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Pomodoro Clock</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#">Draw Everyday</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#">Badminton</a>
+        </li>
+    </ul>
+</nav>
+
+<body>
+
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h1>Pomodoro Clock</h1>
+        <p>This is my take on the Pomodoro technique.</p>
+    </div>
+</div>
+
+
+<script src="pomodoro.js"></script>
+
+<div class="container-fluid">
+    <label for="clock">Clock:</label>
+    <p id="clock"> 00:00:00.000 </p>
+</div>
+
+<div class="container-fluid">
+<!--    <form id = "input">-->
+<!--        <label for="hours">Hours:</label>-->
+<!--        <input type="number" id="hours" min="0" max="24">-->
+<!--        <label for="minutes">Minutes:</label>-->
+<!--        <input type="number" id="minutes" min="0" max="59">-->
+<!--        <label for="seconds">Seconds:</label>-->
+<!--        <input type="number" id="seconds" min="0" max="59">-->
+<!--    </form>-->
+    <form id = "hours"><label>Hours: <input type="number" min="0" max="24"></label></form>
+    <form id = "minutes"><label>Minutes:<input type="number" min="0" max="59"></label></form>
+    <form id = "seconds"><label>Seconds:<input type="number" min="0" max="59"></label></form>
+    <button id="timerButton1" onclick="startTimer()">Start</button>
+    <button id="timerButton2" onclick="">Pause</button>
+    <p id="messages"></p>
+</div>
+
+
+</body>
+</html>
