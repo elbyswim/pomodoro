@@ -1,7 +1,7 @@
 const MINUTESPERHOUR = 60;
 const SECONDSPERMINUTE = 60;
 const MILLISECONDSPERSECOND = 1000;
-let timerOriginal, timeLeft, endTime, timerInterval;
+let timeLeft, endTime, timerInterval;
 
 function printTimeLeft() {
     let t = timeLeft;
@@ -22,10 +22,13 @@ function printTimeLeft() {
         ms.toString().padStart(3, '0');
 }
 
-function timer(end_message) {
-    document.getElementById("timerButton2").innerHTML = "Pause";
-    document.getElementById("timerButton2").setAttribute( "onClick",
+function timer() {
+    document.getElementById("messages").innerHTML = "Timer Started!";
+    document.getElementById("timerButton1").innerHTML = "Pause";
+    document.getElementById("timerButton1").setAttribute( "onClick",
         "javascript: pauseTimer();" );
+    document.getElementById("timerButton2").setAttribute( "onClick",
+        "javascript: resetTimer();" );
     endTime = Date.now() + timeLeft;
     timerInterval = setInterval(function() {
         timeLeft = endTime - Date.now();
@@ -33,65 +36,45 @@ function timer(end_message) {
         if (timeLeft < 0) {
             console.log(timeLeft);
             clearInterval(timerInterval);
-            if (end_message) document.getElementById("messages").innerHTML = "Timer Done!";
-            document.getElementById("timerButton2").innerHTML = "Reset";
-            document.getElementById("timerButton2").setAttribute( "onClick",
-                "javascript: resetTimer();" );
+            document.getElementById("messages").innerHTML = "Timer Done!";
+            setTimer();
         }
     }, 1);
 }
 
-function startTimer() {
-    // let input = document.getElementById("input");
-    // console.log(typeof(parseInt(input.elements[0].value)),
-    //     typeof(parseInt(input.elements[1].value)),
-    //     typeof(parseInt(input.elements[2].value)));
-    // timerOriginal = ((parseInt(input.elements[0].value) * MINUTESPERHOUR
-    //     + parseInt(input.elements[1].value)) * SECONDSPERMINUTE
-    //     + parseInt(input.elements[2].value)) * MILLISECONDSPERSECOND;
-    // console.log(input.elements[0].value,
-    //     input.elements[1].value,
-    //     input.elements[2].value,
-    //     input.elements[0].value * MINUTESPERHOUR + input.elements[1].value,
-    //     (input.elements[0].value * MINUTESPERHOUR + input.elements[1].value)
-    //     * SECONDSPERMINUTE + input.elements[2].value,
-    //     timerOriginal);
-    console.log(typeof(parseInt(document.getElementById("hours").elements[0].value)),
-        typeof(parseInt(document.getElementById("minutes").elements[0].value)),
-        typeof(parseInt(document.getElementById("seconds").elements[0].value)));
-    timerOriginal = ((parseInt(document.getElementById("hours").elements[0].value) * MINUTESPERHOUR
+function setTimer() {
+    timeLeft = ((parseInt(document.getElementById("hours").elements[0].value) * MINUTESPERHOUR
         + parseInt(document.getElementById("minutes").elements[0].value)) * SECONDSPERMINUTE
         + parseInt(document.getElementById("seconds").elements[0].value)) * MILLISECONDSPERSECOND;
-    console.log(document.getElementById("hours").elements[0].value,
-        document.getElementById("minutes").elements[0].value,
-        document.getElementById("seconds").elements[0].value,
-        document.getElementById("hours").elements[0].value * MINUTESPERHOUR + document.getElementById("minutes").elements[0].value,
-        (document.getElementById("hours").elements[0].value * MINUTESPERHOUR + document.getElementById("minutes").elements[0].value)
-        * SECONDSPERMINUTE + document.getElementById("seconds").elements[0].value,
-        timerOriginal);
-    timeLeft = timerOriginal;
     printTimeLeft(timeLeft);
-    timer(true);
+    document.getElementById("timerButton1").innerHTML = "Start";
+    document.getElementById("timerButton1").setAttribute( "onClick",
+        "javascript: startTimer();" );
+}
+
+function startTimer() {
+    setTimer();
+    timer();
 }
 
 function pauseTimer() {
     clearInterval(timerInterval);
+    document.getElementById("messages").innerHTML = "Timer Paused.";
     timeLeft = endTime - Date.now();
     document.getElementById("timerButton1").innerHTML = "Resume";
     document.getElementById("timerButton1").setAttribute( "onClick",
-        "javascript: startTimer(0, 0, 0, " + timeLeft.toString() + ", true);" );
-    document.getElementById("timerButton2").innerHTML = "Reset";
+        "javascript: timer();" );
     document.getElementById("timerButton2").setAttribute( "onClick",
         "javascript: resetTimer();" );
 }
 
 function resetTimer() {
-    timeLeft = timerOriginal;
-    printTimeLeft(timeLeft);
+    clearInterval(timerInterval);
+    document.getElementById("messages").innerHTML = "Timer cancelled.";
+    setTimer();
     document.getElementById("timerButton1").innerHTML = "Start";
     document.getElementById("timerButton1").setAttribute( "onClick",
-        "javascript: timer(true);" );
-    document.getElementById("timerButton2").innerHTML = "Pause";
+        "javascript: startTimer();" );
     document.getElementById("timerButton2").setAttribute( "onClick", "" );
 }
 
